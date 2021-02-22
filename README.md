@@ -3,14 +3,14 @@
 ```
 TTDS_CW3
 ├─ static
-│    ├─ englishST.txt				停用词
+│    ├─ englishST.txt				  停用词
 │    └─ search_mock.json			mock数据
-├─ api.py							业务类
-├─ app.py							启动、配置文件
-├─ controller.py					请求处理和页面跳转
-├─ service.py						业务实现，对业务类进行调用
-├─ result.py						结果类，前后端分离时作为交互数据的格式规范（预弃用）
-└─ utils.py							工具封装
+├─ api.py							           业务类
+├─ app.py							           启动、配置文件
+├─ controller.py				      	请求处理和页面跳转
+├─ service.py						        业务实现，对业务类进行调用
+├─ result.py						         结果类，前后端分离时作为交互数据的格式规范（预弃用）
+└─ utils.py							         工具封装
 ```
 
  
