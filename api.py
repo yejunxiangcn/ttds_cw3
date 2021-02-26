@@ -20,42 +20,45 @@ class SearchEngine:
         self.init_tmp()
 
     @func_log
-    def search(self, command):
+    def search(self, command, search_desc=True):
         # get connection
         conn_title = redis.Redis(connection_pool=self.__pool_title)
-        conn_desc = redis.Redis(connection_pool=self.__pool_desc)
         conn_meta = redis.Redis(connection_pool=self.__pool_meta)
-
-        # process input query
-        query_title = self.__preprocessor.preprocess(command, use_stop_words=False)
-        query_desc = self.__preprocessor.preprocess(command, use_stop_words=True)
-
-        self.query_title += query_title
-        self.query_desc += query_desc
 
         # N
         self.N = int(conn_meta.get("N"))
 
-        # df_title
+        # process input query
+        query_title = self.__preprocessor.preprocess(command, use_stop_words=False)
+
+        self.query_title += query_title
+
+        # title
         for item in query_title:
             result = conn_meta.hget("df_title", item)
             self.__df_title[item] = result if result is not None else 0
-
-        # df_desc
-        for item in query_desc:
-            result = conn_meta.hget("df_description", item)
-            self.__df_desc[item] = result if result is not None else 0
 
         # search
         candidates = self.__search_candidates(conn_title, query_title)
         result_title = self.__judge_phrase("title", candidates, query_title)
 
-        candidates = self.__search_candidates(conn_desc, query_desc)
-        result_desc = self.__judge_phrase("desc", candidates, query_desc)
-        result_desc -= result_title
+        result_desc = None
+        # desc
+        if search_desc:
+            conn_desc = redis.Redis(connection_pool=self.__pool_desc)
+            query_desc = self.__preprocessor.preprocess(command, use_stop_words=True)
+            self.query_desc += query_desc
 
-        # return [item.decode('utf-8') for item in list(result)]
-        return list(result_title), list(result_desc)
+            for item in query_desc:
+                result = conn_meta.hget("df_description", item)
+                self.__df_desc[item] = result if result is not None else 0
+
+            candidates = self.__search_candidates(conn_desc, query_desc)
+            result_desc = self.__judge_phrase("desc", candidates, query_desc)
+
+            result_desc -= result_title
+
+        return result_title, result_desc
 
     @func_log
     def get_records(self, id_list):
@@ -204,5 +207,3 @@ class Preprocessor:
             processed = [porter_stemmer.stem(w) for w in processed]
             # processed = [stem(w) for w in processed]
         return processed
-
-
