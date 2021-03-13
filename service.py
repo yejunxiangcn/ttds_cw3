@@ -1,7 +1,8 @@
 import random
 import redis
+import os
 import pickle
-from api import Preprocessor, SearchEngine
+from api import Preprocessor, SearchEngine, Trie
 from utils import *
 
 # Redis config
@@ -16,6 +17,9 @@ regex = r"\w+"
 preprocessor = Preprocessor(regex, stop_words_path)
 
 search_engine = SearchEngine(pool_title, pool_desc, pool_record, pool_meta, preprocessor)
+
+# Trie
+trie = Trie("static/trie") if os.path.exists("static/trie") else Trie()
 
 
 @service_log
@@ -80,7 +84,9 @@ def search_moc(query, boolean, search_desc):
 # TODO
 @service_log
 def completion(query):
-    pass
+    result = trie.search(query)
+    result.sort(key=lambda x: len(x))
+    return result
 
 
 @service_log

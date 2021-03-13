@@ -1,12 +1,11 @@
 import json
-import datetime
 import time
 from flask import current_app
-from functools import wraps
 
 
 def jsonify(object):
     return json.dumps(obj=object, default=lambda x: x.__dict__, sort_keys=False, indent=2)
+
 
 def func_log(function):
     def inner(*args, **kwargs):

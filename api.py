@@ -1,4 +1,5 @@
 import re
+import sys
 import math
 import redis
 import pickle
@@ -207,3 +208,61 @@ class Preprocessor:
             processed = [porter_stemmer.stem(w) for w in processed]
             # processed = [stem(w) for w in processed]
         return processed
+
+
+class Trie:
+    def __init__(self, root_file=None):
+        if root_file is None:
+            self.root = {}  # 这里用一个字典存储
+        else:
+            with open(root_file, "rb") as f:
+                self.root = pickle.load(f)
+        self.end_of_word = '^'  # 用#标志一个单词的结束
+
+    # 构建前缀树
+    def insert(self, word: str):
+        node = self.root
+        # word_split = word.split()
+        for char in word:
+            node = node.setdefault(char, {})
+        node[self.end_of_word] = self.end_of_word
+
+    # 查找是否有一个单词是这个前缀开始的
+    def startsWith(self, prefix: str):
+        node = self.root
+        prefix = prefix.split()
+        prefix = " ".join(prefix)
+        for char in prefix:
+            if char not in node:
+                return False
+            if char in node:
+                node = node[char]
+
+        def get_completion_words(pre_string, cur_node):
+            word_list = []
+            if cur_node == '^':
+                word_list.append(pre_string)
+                return word_list
+            for key in list(cur_node):
+                word_list.extend(get_completion_words(pre_string + str(key), cur_node[key]))
+            return word_list
+
+        return get_completion_words(prefix, node)
+
+    # 输入查询前缀，输出查询结果
+    def search(self, pre_search):
+        select_list = self.startsWith(pre_search.lower())
+        final = []
+        for i in range(0, 10):
+            try:
+                temp = select_list[i][:-1]
+            except:
+                break
+            final.append(temp)
+        return final
+
+    def dump(self, file, protocol):
+        sys.setrecursionlimit(1000000)
+        with open(file, "wb+") as f:
+            pickle.dump(file, self.root)
+        sys.setrecursionlimit(998)
