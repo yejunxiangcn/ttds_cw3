@@ -261,7 +261,7 @@ class Trie:
             final.append(temp)
         return final
 
-    def dump(self, file, protocol):
+    def dump(self, file):
         sys.setrecursionlimit(1000000)
         with open(file, "wb+") as f:
             pickle.dump(file, self.root)

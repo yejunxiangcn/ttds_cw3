@@ -30,6 +30,11 @@ def completion(query):
     return jsonify(r)
 
 
+@controller.route('/heatsearch')
+def heat_search():
+    return jsonify(service.heat_search_moc())
+
+
 @controller.route('/')
 def hello_world():
     r = R.ok().add_data("item", "haha")

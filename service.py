@@ -10,7 +10,6 @@ pool_title = redis.ConnectionPool(host='localhost', port=6379, decode_responses=
 pool_desc = redis.ConnectionPool(host='localhost', port=6379, decode_responses=False, db=1)
 pool_record = redis.ConnectionPool(host='localhost', port=6379, decode_responses=False, db=2)
 pool_meta = redis.ConnectionPool(host='localhost', port=6379, decode_responses=True, db=3)
-
 # Create Preprocessor
 stop_words_path = "static/englishST.txt"
 regex = r"\w+"
@@ -81,7 +80,6 @@ def search_moc(query, boolean, search_desc):
     return data["data"]["list"]
 
 
-# TODO
 @service_log
 def completion(query):
     result = trie.search(query)
@@ -99,3 +97,20 @@ def completion_moc(query):
     for i in range(random.randint(3, 10)):
         result += [query + " " + str(i)]
     return result
+
+
+@service_log
+def heat_increase(query):
+    conn = redis.Redis(connection_pool=pool_meta)
+    conn.zincrby("heat", 1, query)
+
+
+@service_log
+def heat_search():
+    conn = redis.Redis(connection_pool=pool_meta)
+    result = conn.zrange("heat", 0, 9)
+    return result
+
+@service_log
+def heat_search_moc():
+    return ["heat" + str(i) for i in range(10)]
