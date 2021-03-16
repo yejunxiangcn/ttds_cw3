@@ -1,10 +1,11 @@
-from flask import Blueprint, request, current_app
+from flask import Blueprint, request, current_app, redirect, url_for, render_template
 from result import R
 from utils import *
 import service
 import json
 import time
 import pickle
+import requests
 
 controller = Blueprint('app', __name__)
 
@@ -36,7 +37,12 @@ def heat_search():
 
 
 @controller.route('/')
-def hello_world():
-    r = R.ok().add_data("item", "haha")
+def homepage():
+    # r = R.ok().add_data("item", "haha")
+    return render_template("homepage.html")
+    # return jsonify(r)
 
-    return jsonify(r)
+def test():
+    url = 'http://127.0.0.1:5000/search'
+    d = {'key1': 'value1', 'key2': 'value2'}
+    r = requests.post(url, data=d)
