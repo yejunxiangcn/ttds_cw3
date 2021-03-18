@@ -5,28 +5,27 @@
 
 <style>
   .container{
-            float: none;
-            display: block;
-            margin-left: auto;
-            margin-right:auto;
-            width: 50%;
+      float: none;
+      display: block;
+      margin-left: auto;
+      margin-right:auto;
+      width: 50%;
+  }
+  .container img{
+    float: left;
+    margin-right: 15px;
+    width: 100px;
+  }
+  .container p{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:6;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
 
 </style>
 
-<!--<form name="search" action="/search" method="POST" id="mainForm">-->
-    <!--<p id="searchForm">-->
-        <!--<input type="text" name="query">-->
-        <!--&lt;!&ndash;<input class="form-control me-2" type="search" placeholder="Search ID" aria-label="Search">&ndash;&gt;-->
-        <!--&lt;!&ndash;<input type="text" class="form-control" placeholder="Searching" aria-label="Searching" aria-describedby="basic-addon1">&ndash;&gt;-->
-    <!--</p>-->
-    <!--<input type="submit" class="btn btn-primary" value="Search">-->
-    <!--&lt;!&ndash;description checkbox&ndash;&gt;-->
-    <!--<input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">-->
-    <!--<label class="btn btn-outline-primary" for="btncheck1" onclick="#">Description</label>-->
-    <!--&lt;!&ndash;add another text input for boolean search&ndash;&gt;-->
-    <!--<button type="button" class="btn btn-primary" onclick="javascript: booleanAdd();">AND</button>-->
-<!--</form>-->
 
 <div class="container">
   <form method="GET" action="{{ url_for('app.search') }}" name="mainForm">
@@ -42,7 +41,6 @@
   </form>
 
 </div> <!-- /container -->
-
 
 <!--div of searching forms-->
 <!--<div id="searchFormList">-->
@@ -63,9 +61,5 @@
 {% endblock %}
 
 {% block result %}
-    <ul>
-        <!--{% for i in page %}-->
-            <!--<a href="/search/page/{{i}}/">{{i}}</a>&nbsp;-->
-        <!--{% endfor %}-->
-    </ul>
+  <div id="results" class="container"></div>
 {% endblock %}

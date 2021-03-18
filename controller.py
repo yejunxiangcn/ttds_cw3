@@ -36,11 +36,18 @@ def search():
     records = service.search_moc(query=query, boolean=["AND", "OR", "OR"], search_desc=True)
     r = R.ok().add_data("list", records)
     r_list = r.data['list']
-    for i in r_list:
-        print("*"*40)
-        print(i)
-    return jsonify(r)
+    # for i in r_list:
+    #     print("*"*40)
+    #     print(i)
+    # return redirect(url_for("app.results",content=r_list))
+    print(r_list)
+    return render_template("content.html", content=r_list)
+    # return jsonify(r)
 
+@controller.route('/results', methods=['GET', 'POST'])
+def results():
+    return render_template("content.html")
+    
 
 @controller.route('/completion/<string:query>', methods=['GET'])
 def completion(query):
@@ -65,7 +72,6 @@ def homepage():
         print(form.query.data)
         print(form.description.data)
         print(form)
-        # return redirect(url_for('search',form=form))
+        return redirect(url_for('.search',form=form))
     return render_template("homepage.html", form=form)
-    # return jsonify(r)
 

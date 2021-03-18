@@ -2,20 +2,29 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% block title %}Search Result{% endblock %}
 {% block result %}
+  <style>
+    #navbar {
+      visibility: hidden;
+    }
+  </style>
   {% if content %}
     {% for c in content %}
-      {% if c.img %}
-        <img src={{c.img}} class="img-thumbnail" alt="...">
-      {% endif %}
-      <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">List group item heading</h5>
-        <small>3 days ago</small>
+      <div class="card">
+        {% if c.asin %}
+          <h5 class="card-header">{{c.asin}}</h5>
+        {% endif %}
+        <div class="card-body">
+          {% if c.title %}
+            <h4 class="card-title">{{c.title}}</h4>
+          {% endif %}
+          {% if c.img %}
+            <img src={{c.img}} class="img-thumbnail" alt="...">
+          {% endif %}
+          {% if c.description %}
+            <p class="card-text">{{c.description}}</p>
+          {% endif %}
+        </div>
       </div>
-      <p class="mb-1">Some placeholder content in a paragraph.</p>
-      <small>And some small print.</small>
-  </a>
-  {% endfor %}
+    {% endfor %}
   {% endif %}
-
 {% endblock %}
