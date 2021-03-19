@@ -23,16 +23,75 @@
     overflow:hidden;
     text-overflow:ellipsis;
   }
-
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
+<script type="text/javascript">
+  $(".form-control").bind("input propertychange",function(event){
+     console.log($("#input1").val())
+  });
+
+  function OnInput (event) {
+    var inputValue = event.target.value;
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: './completion/'+inputValue,
+        contentType: "application/json",
+        data:JSON.stringify({
+        }),
+        complete: function(xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          obj = JSON.parse(xmlHttp.responseText);
+          console.log(obj.data.list);
+          array = obj.data.list;
+          <!--console.log(array);-->
+          jQuery('#query').autocomplete({
+            source: array,
+            minLength:2
+          });
+        }
+      });
+  };
+
+  jQuery(function(){
+    $( "" ).each(function( index ) {
+      console.log( index + ": " + $( this ).text() );
+    });
+    var inputs = document.getElementsByClassName("form-control");
+    var i;
+    let array=[];
+    for (i = 0; i < inputs.length; i++) {
+      var inputValue = jQuery(inputs[i]).value;
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: './completion/'+inputValue,
+        contentType: "application/json",
+        data:JSON.stringify({
+        }),
+        complete: function(xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          obj = JSON.parse(xmlHttp.responseText);
+          <!--console.log(obj.data.list);-->
+          array = obj.data.list;
+          <!--console.log(array);-->
+          jQuery(inputs[i]).autocomplete({
+            source: array,
+            minLength:2
+          });
+        }
+      });
+    }
+  });
+</script>
 
 <div class="container">
   <form method="GET" action="{{ url_for('app.search') }}" name="mainForm">
     {{ form.hidden_tag() }}
     <h2>Search Here</h2>
     <div id="searchForm">
-      <input id="query" type="text" class="form-control" placeholder="Searching" aria-label="Searching" aria-describedby="basic-addon1">
+      <input id="query" type="text" class="form-control" placeholder="Searching" aria-label="Searching" aria-describedby="basic-addon1" oninput="OnInput (event)">
     </div>
     <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
     <label class="btn btn-outline-primary" for="btncheck1" onclick="#">Description</label>
@@ -41,22 +100,6 @@
   </form>
 
 </div> <!-- /container -->
-
-<!--div of searching forms-->
-<!--<div id="searchFormList">-->
-    <!--<label for="exampleDataList" class="form-label">Datalist example</label>-->
-        <!--<input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">-->
-        <!--<datalist id="datalistOptions">-->
-          <!--<option value="San Francisco">-->
-          <!--<option value="New York">-->
-          <!--<option value="Seattle">-->
-          <!--<option value="Los Angeles">-->
-          <!--<option value="Chicago">-->
-        <!--</datalist>-->
-
-    <!--<button type="button" class="btn btn-primary" onclick="javascript: booleanAdd();">AND</button>-->
-<!--</div>-->
-
 
 {% endblock %}
 
