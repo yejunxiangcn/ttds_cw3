@@ -8,6 +8,8 @@ from nltk.stem.porter import PorterStemmer
 
 from utils import *
 
+import enchant
+
 
 class SearchEngine:
 
@@ -266,3 +268,52 @@ class Trie:
         with open(file, "wb+") as f:
             pickle.dump(file, self.root)
         sys.setrecursionlimit(998)
+
+
+class errorChecker:
+
+    def __init__(self):
+        """
+        Init the object
+        :param punc: The regexp contains all punctuations except '/\-_~'
+        :param punc1: The regexp contains punctuations '/\-_~'
+        :param checker: An enchant Dict that is used for spellchecking. The word list used in this Dict is a customized
+        word list that contains tokens from all titles.
+        """
+        self.punc = r'[!"#\$%&()*+,.:;<=>?@[\]^`{|}]'
+        self.punc1 = r'[/\-_~]'
+        self.checker = enchant.request_pwl_dict("static/title_tokens.txt")
+
+    def correction(self, content):
+        """
+        Perform spell checking on the given content (title), and return the corrected version.
+        :param content: String    Content to be corrected.
+        :return: String    the corrected content.
+        """
+
+        # customized preprocess for given content.
+        a = content.lower()
+        a = a.split()
+        words = []
+
+        # Remove punctuations in self.punc only.
+        for word in a:
+            x = re.sub(self.punc, "", word)
+            if re.search(self.punc1, x) is not None:
+                result = re.split(self.punc1, x)
+                for item in result:
+                    if item != "":
+                        words.append(item)
+            else:
+                words.append(x)
+
+        # For each word in given content, apply spell checking.
+        result = ""
+        for word in words:
+            if not self.checker.check(word):
+                sugglst = self.checker.suggest(word)
+                if len(sugglst) > 0:
+                    word = sugglst[0]
+            result += word + " "
+
+        return result[:-1]
