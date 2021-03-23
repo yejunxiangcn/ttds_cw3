@@ -57,7 +57,7 @@ def completion(query):
     return jsonify(r)
 
 
-@controller.route('/heatsearch')
+@controller.route('/heatsearch', methods=['GET', 'POST'])
 def heat_search():
     return jsonify(service.heat_search_moc())
 

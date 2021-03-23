@@ -103,6 +103,38 @@
 
 {% endblock %}
 
+
+{% block heat %}
+  <script>
+    $(document).ready(function(){
+      var query = 'for heat search.';
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: './heatsearch',
+        contentType: "application/json",
+        data:JSON.stringify({
+            "query":query
+        }),
+        complete: function(xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          obj = JSON.parse(xmlHttp.responseText);
+          console.log(obj.data);
+          console.log(xmlHttp.responseText);
+          $("#heat").append(xmlHttp.responseText);
+        }
+      });
+    });
+
+  </script>
+
+  <div id="heat" class="container">
+    <h4>Heat Search</h4>
+  </div>
+
+{% endblock %}
+
+
 {% block result %}
   <div id="results" class="container"></div>
 {% endblock %}
