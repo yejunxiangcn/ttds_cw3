@@ -43,7 +43,7 @@
         complete: function(xmlHttp) {
           // xmlHttp is a XMLHttpRquest object
           obj = JSON.parse(xmlHttp.responseText);
-          console.log(obj.data.list);
+          <!--console.log(obj.data.list);-->
           array = obj.data.list;
           <!--console.log(array);-->
           jQuery('#query').autocomplete({
@@ -119,8 +119,8 @@
         complete: function(xmlHttp) {
           // xmlHttp is a XMLHttpRquest object
           obj = JSON.parse(xmlHttp.responseText);
-          console.log(obj.data);
-          console.log(xmlHttp.responseText);
+          <!--console.log(obj.data);-->
+          <!--console.log(xmlHttp.responseText);-->
           $("#heat").append(xmlHttp.responseText);
         }
       });

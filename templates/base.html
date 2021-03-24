@@ -18,8 +18,8 @@
               complete: function(xmlHttp) {
                 // xmlHttp is a XMLHttpRquest object
                 obj = JSON.parse(xmlHttp.responseText);
-                console.log(obj.data.list);
-                console.log(xmlHttp.responseText);
+                <!--console.log(obj.data.list);-->
+                <!--console.log(xmlHttp.responseText);-->
                 $("#heat").append(xmlHttp.responseText);
               }
           });
@@ -88,8 +88,8 @@
                 complete: function(xmlHttp) {
                   // xmlHttp is a XMLHttpRquest object
                   obj = JSON.parse(xmlHttp.responseText);
-                  console.log(obj.data.list);
-                  console.log(inx);
+                  <!--console.log(obj.data.list);-->
+                  <!--console.log(inx);-->
                   array = obj.data.list;
                   <!--console.log(array);-->
                   jQuery('#query'+inx).autocomplete({
@@ -111,13 +111,13 @@
         {
           var type = mainForm.elements[i].type;
           if (type=="checkbox" && mainForm.elements[i].checked){
-            console.log("Form element in position " + i + " is of type checkbox and is checked.");
+            <!--console.log("Form element in position " + i + " is of type checkbox and is checked.");-->
             search_desc='True';
           }
           else if (type=="text") {
             textNum ++;
             textArray.push(mainForm.elements[i].value);
-            console.log(textNum);
+            <!--console.log(textNum);-->
           }
           else {
           }
@@ -140,7 +140,7 @@
               // xmlHttp is a XMLHttpRquest object
               <!--obj = JSON.parse(xmlHttp.responseText);-->
               <!--console.log(obj.data.list);-->
-              console.log(xmlHttp.responseText);
+              <!--console.log(xmlHttp.responseText);-->
               $("#results").append(xmlHttp.responseText);
             }
         });
