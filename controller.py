@@ -1,5 +1,4 @@
 from flask import Blueprint, request, current_app, redirect, url_for, render_template
-from result import R
 from utils import *
 import service
 from flask_wtf import FlaskForm
@@ -22,9 +21,7 @@ class SearchForm(FlaskForm):
 def searchID(bookID):
     bookID = str(bookID)
     result = service.searchID(bookID)
-    r = R.ok().add_data("book", result)
-    result = r.data["book"]
-    return render_template("content.html", content=result)
+    return render_template("content.html", content=result, query=[])
 
 
 @controller.route('/search', methods=['GET'])
@@ -49,11 +46,7 @@ def search():
         for q in query:
             service.heat_increase(q)
 
-    r = R.ok().add_data("list", records)
-    r.add_data("query", corrected_query)
-    r_list = r.data['list']
-
-    return render_template("content.html", content=r_list[:100], query=corrected_query)
+    return render_template("content.html", content=records[:100], query=corrected_query)
 
 
 @controller.route('/results', methods=['GET', 'POST'])
