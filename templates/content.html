@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Search Result{% endblock %}
+{% block result %}
+  <style>
+    #navbar {
+      visibility: hidden;
+    }
+  </style>
+  {% if content %}
+    {% for c in content %}
+      <div class="card">
+        {% if c.asin %}
+          <h5 class="card-header">{{c.asin}}</h5>
+        {% endif %}
+        <div class="card-body">
+          {% if c.title %}
+            <h4 class="card-title">{{c.title}}</h4>
+          {% endif %}
+          {% if c.img %}
+            <img src={{c.img}} class="img-thumbnail" alt="...">
+          {% endif %}
+          {% if c.description %}
+            <p class="card-text">{{c.description}}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
