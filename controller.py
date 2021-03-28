@@ -57,8 +57,7 @@ def results():
 @controller.route('/completion/<string:query>', methods=['GET'])
 def completion(query):
     records = service.completion(query.strip())
-    r = R.ok().add_data("list", records)
-    return jsonify(r)
+    return jsonify(records)
 
 
 @controller.route('/heatsearch', methods=['GET', 'POST'])
