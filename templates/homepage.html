@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+
+<style>
+  .container{
+      float: none;
+      display: block;
+      margin-left: auto;
+      margin-right:auto;
+      width: 50%;
+  }
+  .container img{
+    float: left;
+    margin-right: 15px;
+    width: 300px;
+  }
+  .container p{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:6;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+  }
+</style>
+
+<div class="container">
+  <form method="GET" action="{{ url_for('app.search') }}" name="mainForm">
+    {{ form.hidden_tag() }}
+    <h2>Search Here</h2>
+    <div id="searchForm" class="ui-widget">
+      <input id="query" type="text" class="form-control autocomplete" placeholder="Searching" aria-label="Searching" aria-describedby="basic-addon1" oninput="OnInput (event)">
+    </div>
+    <!--<input type="checkbox" class="btn-check" id="" autocomplete="off">-->
+    <!--<label class="btn btn-outline-primary" for="btncheck1" onclick="#"></label>-->
+    <div class="form-check form-switch">
+      <br/>
+      <input class="form-check-input" type="checkbox" id="btncheck1" checked>
+      <label class="form-check-label" for="btncheck1">Search Description</label>
+      <div>
+        <button type="button" class="btn btn-primary" onclick="booleanAdd()" style="float:right">AND</button>
+        <button type="button" class="btn btn-primary" onclick="search()" style="float:right;margin-right:1%;">Search</button>
+      </div>
+      <br/>
+      <br/>
+    </div>
+  </form>
+
+</div> <!-- /container -->
+
+{% endblock %}
+
+
+{% block heat %}
+  <script>
+    $(document).ready(function(){
+      var query = 'for heat search.';
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: './heatsearch',
+        contentType: "application/json",
+        data:JSON.stringify({
+            "query":query
+        }),
+        complete: function(xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          obj = JSON.parse(xmlHttp.responseText);
+          <!--console.log(obj.data);-->
+          <!--console.log(xmlHttp.responseText);-->
+          $("#heat").append(xmlHttp.responseText);
+        }
+      });
+    });
+
+  </script>
+
+  <div id="heat" class="container">
+    <h4>Heat Search</h4>
+  </div>
+
+{% endblock %}
+
+
+{% block result %}
+  <div id="results" class="container"></div>
+{% endblock %}

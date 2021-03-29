@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Search Result{% endblock %}
+
+
+{% block result %}
+  <style>
+    #navbar {
+      visibility: hidden;
+    }
+.card-header{
+  color:gray;
+}
+
+  </style>
+
+	<style type="text/css">
+  .card-body{
+      background-color: #ffffff;
+  }
+  .card-body:hover {
+      background-color: #ccc;
+      <!--transform: scale(1.2);-->
+  }
+  .card{
+    background-color: black;
+  }
+  div{
+  margin:0px;
+  border:0;
+  padding:0;}
+
+<!--  * {-->
+<!--  margin:0;-->
+<!--  padding:0;-->
+<!--  }-->
+</style>
+  {% if content %}
+    {% if query %}
+      <div class="alert alert-primary" role="alert">
+        Showing results for {{query}}
+      </div>
+    {% endif %}
+
+    {% for c in content %}
+      <div class="card">
+        {% if c.asin %}
+          <h5 class="card-header">{{c.asin}}</h5>
+        {% endif %}
+        <div class="card-body">
+          {% if c.title %}
+            <h4 class="card-title">{{c.title}}</h4>
+          {% endif %}
+          {% if c.img %}
+            <img src={{c.img}} class="img-thumbnail" alt="...">
+          {% endif %}
+          {% if c.description %}
+            <p class="card-text">{{c.description}}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

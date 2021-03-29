@@ -1,0 +1,46 @@
+{% extends "base-user.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block head %}
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css'>
+<link rel="stylesheet" href="../static/css/style.css">
+
+<script language="JavaScript">
+function check(){
+	alert('需要check用户密码');
+    this.location = "homepage.html";
+}
+</script>
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<form id="loginForm" name="loginForm"  method=post onsubmit="return check()" action="{{ url_for('app.homepage') }}" >
+		<h3 class="headline">
+          Book Search System Register
+      	</h3>
+
+		 <div class="input-field">
+        <label class="input-box" for="username">
+          <i class="fas fa-user-circle"></i>
+          <input type="text" name="user-name" id="username" placeholder="Username:" autocomplete="off">
+        </label>
+			<label class="input-box" for="password">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="password" id="password" placeholder="Password:" autocomplete="off">
+        </label>
+          <div align="center" class="">
+            <input id="button" type="submit" value="Login" align="center"/>
+			   <p>Unregister? &nbsp; &nbsp;   <a href="{{ url_for('app.register') }}">Register</a></p>
+          </div>
+         </div>
+    </form>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base-user.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block head %}
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css'>
+<link rel="stylesheet" href="../static/css/style.css">
+{% endblock %}
+
+
+
+{% block body %}
+<div class="container">
+	<form action="" method=post>
+      <h2 class="headline">
+        <div>
+          Book Search System Register
+        </div>
+      </h2>
+
+      <div class="input-field">
+        <label class="input-box" for="email">
+          <i class="fas fa-envelope"></i>
+          <input type="email" name="email" id="email" placeholder="Input Email" autocomplete="off"/>
+        </label>
+
+        <label class="input-box" for="username">
+          <i class="fas fa-user-circle"></i>
+          <input type="text" name="user-name" id="username" placeholder="Username:" autocomplete="off">
+        </label>
+
+        <label class="input-box" for="password">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="password" id="password" placeholder="Password:" autocomplete="off">
+        </label>
+          <div align="center" class="">
+			  <input type="submit" id="button" align="center" onClick="" value="Register" />
+          </div>
+
+      </div>
+
+
+
+<!--      <h5>Login with a third party </h5>-->
+<!--      <div class="social">-->
+<!--        <div class="icon-holder">-->
+<!--          <i class="fab fa-google"></i>-->
+<!--        </div>-->
+<!--        <div class="icon-holder">-->
+<!--          <i class="fab fa-facebook-square"></i>-->
+<!--        </div>-->
+<!--        <div class="icon-holder">-->
+<!--          <i class="fab fa-twitter"></i>-->
+<!--        </div>-->
+<!--        <div class="icon-holder">-->
+<!--          <i class="fab fa-github"></i>-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <div align="center" class="">
+        <p>Register Already? &nbsp; &nbsp;   <a href="{{ url_for('app.login') }}">Login</a></p>
+      </div>
+    </form>
+  </div>
+
+
+<script  src="../static/script.js"></script>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
