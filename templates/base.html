@@ -42,7 +42,7 @@
                 // xmlHttp is a XMLHttpRquest object
                 obj = JSON.parse(xmlHttp.responseText);
                 <!--console.log(obj.data.list);-->
-                array = obj.data.list;
+                array = obj;
                 <!--console.log(array);-->
                 jQuery('.autocomplete').autocomplete({
                   at: "left down",
@@ -360,9 +360,6 @@ outline: none;
           url: './searchID/'+searchId,
           contentType: "application/json",
           data:JSON.stringify({
-              "query":textArray,
-              "boolean":[],
-              "search_desc":'True'
           }),
           complete: function(xmlHttp) {
             // xmlHttp is a XMLHttpRquest object

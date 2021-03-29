@@ -93,7 +93,7 @@ def heat_increase(query):
 @service_log
 def heat_search():
     conn = redis.Redis(connection_pool=pool_meta)
-    result = conn.zrange("heat", 0, 9)
+    result = conn.zrange("heat", -10, -1)[::-1]
     return result
 
 

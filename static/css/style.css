@@ -12,12 +12,23 @@
 }
 
 .container {
+	width: 100px;
+	height: 100px;
+	background: #eee;
+	border: 1px solid #ccc;
+	position: absolute;
+	left: 50%;top: 50%;
+	margin-left: -50px;
+	margin-top: -50px;
+
+
   width: 480px;
   color: var(--text-gray);
   background-color: var(--black);
   border-radius: var(--radius);
-  padding: 50px;
+/*  padding: 50px;*/
   padding-bottom: 65px;
+	
 }
 .container .form {
   width: 100%;
