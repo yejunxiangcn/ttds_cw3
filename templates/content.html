@@ -35,13 +35,14 @@
 <!--  padding:0;-->
 <!--  }-->
 </style>
+
+
   {% if content %}
-    {% if query %}
+	{% if query %}
       <div class="alert alert-primary" role="alert">
         Showing results for {{query}}
       </div>
     {% endif %}
-
     {% for c in content %}
       <div class="card">
         {% if c.asin %}

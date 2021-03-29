@@ -14,7 +14,8 @@
   .container img{
     float: left;
     margin-right: 15px;
-    width: 300px;
+    width: 100px;
+	height: 150px;
   }
   .container p{
     display:-webkit-box;
@@ -26,39 +27,88 @@
   .ui-autocomplete {
     max-height: 100px;
     overflow-y: auto;
-    /* prevent horizontal scrollbar */
     overflow-x: hidden;
+	width: 100%;
   }
+
+
+.logo{
+      width: 100%;
+
+     height: 150px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	background-position: center center;
+    }
+.logo img{
+	float:left;
+	margin-left: 45%;
+	margin-bottom: 25px;
+	margin-top: 20px;
+	align-self: center;
+	width:80px; 
+	height:100px}
+
+
 </style>
+
+<style type="text/css">
+        table{
+            margin:auto;
+            width:300px;
+           border-collapse:collapse;
+        }
+        th,td{
+            border:0px solid black;
+        }
+        tr td:first-child{
+            border-left:0;
+        }
+        tr td:last-child {
+            border-right:0;
+        }
+        tr:first-child td,tr:first-child th{
+            border-top:0px;
+        }
+        tr:last-child td{
+            border-bottom:0px;
+        }
+    </style>
+
+<div class="logo" id="logo">
+	<img class="img" src="../static/images/logo.jpeg">
+</div>
 
 <div class="container">
   <form method="GET" action="{{ url_for('app.search') }}" name="mainForm">
     {{ form.hidden_tag() }}
-    <h2>Search Here</h2>
+    <h3>Search Here</h3>
     <div id="searchForm" class="ui-widget">
-      <input id="query" type="text" class="form-control autocomplete" placeholder="Searching" aria-label="Searching" aria-describedby="basic-addon1" oninput="OnInput (event)">
+      <input id="query" type="text" class="form-control autocomplete input1" placeholder="Searching" aria-label="Searching" aria-describedby="basic-addon1" oninput="OnInput (event)">
+      <button type="button" class="btn btn-primary btn1" onclick="search()">Search</button>
+      <button type="button" class="btn btn2" onclick="booleanAdd()" ></button>
     </div>
-    <!--<input type="checkbox" class="btn-check" id="" autocomplete="off">-->
-    <!--<label class="btn btn-outline-primary" for="btncheck1" onclick="#"></label>-->
+
     <div class="form-check form-switch">
-      <br/>
-      <input class="form-check-input" type="checkbox" id="btncheck1" checked>
-      <label class="form-check-label" for="btncheck1">Search Description</label>
-      <div>
-        <button type="button" class="btn btn-primary" onclick="booleanAdd()" style="float:right">AND</button>
-        <button type="button" class="btn btn-primary" onclick="search()" style="float:right;margin-right:1%;">Search</button>
+      <div class="checkboxOne">
+      <input class="" type="checkbox" id="btncheck1" float="left" checked/>&nbsp; &nbsp; &nbsp;
+      <label class="" for="btncheck1"></label>
       </div>
-      <br/>
-      <br/>
+      <div class="checkboxText"><font size="1px">Search Description</font></div>
     </div>
+
   </form>
 
+  <br/>
+  <br/>
+  <br/>
 </div> <!-- /container -->
 
 {% endblock %}
 
 
 {% block heat %}
+
   <script>
     $(document).ready(function(){
       var query = 'for heat search.';
@@ -71,19 +121,87 @@
             "query":query
         }),
         complete: function(xmlHttp) {
-          // xmlHttp is a XMLHttpRquest object
           obj = JSON.parse(xmlHttp.responseText);
-          <!--console.log(obj.data);-->
-          <!--console.log(xmlHttp.responseText);-->
-          $("#heat").append(xmlHttp.responseText);
+          //var obj = xmlHttp.responseText;
+
+          //$("#heat").append(xmlHttp.responseText);
+
+        $("#heatword1").text(obj[0]);
+        $("#heatword2").text(obj[1]);
+        $("#heatword3").text(obj[2]);
+        $("#heatword4").text(obj[3]);
+        $("#heatword5").text(obj[4]);
+        $("#heatword6").text(obj[5]);
         }
       });
     });
 
+    function addToSearch(txt){
+      document.getElementById("query").value = txt;
+    }
   </script>
 
+<style type="text/css">
+    .heatword{
+    color:black;
+    text-decoration:none;
+}
+    .heatword:hover{
+    text-decoration:underline ;;
+    }
+.heatTitle{
+width:auto;
+height:40px;
+
+
+}
+.heatTitle img{
+    margin-left:0px;     
+	float:left;
+	width:25px;
+	height:25px}
+.ht{
+    float:left;
+    margin-left:0px;
+}
+</style>
+
   <div id="heat" class="container">
-    <h4>Heat Search</h4>
+    <div class="heatTitle">
+        <img src="../static/images/heat.png" >
+        <h4 class="ht">Heat Search</h4>
+     </div>
+    <br/>
+    <div float="left" width="auto">
+      <table>
+        <tr>
+            <td>
+                   <!--<a class="heatword"  href="#"  ></a>-->
+              <button id="heatword1" type="button" class="btn btn-link" onclick = "addToSearch(this.innerHTML)"></button>
+            </td>
+            <td>
+              <button id="heatword2" type="button" class="btn btn-link" onclick = "addToSearch(this.innerHTML)"></button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <button id="heatword3" type="button" class="btn btn-link" onclick = "addToSearch(this.innerHTML)"></button>
+            </td>
+            <td>
+              <button id="heatword4" type="button" class="btn btn-link" onclick = "addToSearch(this.innerHTML)"></button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <button id="heatword5" type="button" class="btn btn-link" onclick = "addToSearch(this.innerHTML)"></button>
+            </td>
+            <td>
+              <button id="heatword6" type="button" class="btn btn-link" onclick = "addToSearch(this.innerHTML)"></button>
+            </td>
+
+        </tr>
+      </table>
+        </div>
   </div>
 
 {% endblock %}
