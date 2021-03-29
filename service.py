@@ -78,7 +78,6 @@ def search(query, boolean, search_desc):
     return records
 
 
-@service_log
 def completion(query):
     result = trie.search(query.lower())
     result.sort(key=lambda x: len(x))
