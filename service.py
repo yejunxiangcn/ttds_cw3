@@ -80,7 +80,7 @@ def search(query, boolean, search_desc):
 
 @service_log
 def completion(query):
-    result = trie.search(query)
+    result = trie.search(query.lower())
     result.sort(key=lambda x: len(x))
     return result
 
