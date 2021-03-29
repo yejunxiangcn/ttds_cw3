@@ -30,9 +30,12 @@ def searchID(bookID):
     search_engine.init_tmp()
     # get_records
     records = search_engine.get_records([bookID])
-    records = [pickle.loads(record) for record in records]
+    result = []
+    for record in records:
+        if record is not None:
+            result.append(pickle.loads(record))
     # records = [record[0] for record in records]
-    return records
+    return result
 
 
 @service_log
