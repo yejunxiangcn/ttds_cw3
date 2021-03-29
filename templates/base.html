@@ -54,30 +54,6 @@
             });
         };
 
-        jQuery(function(){
-          var inputs = document.getElementsByClassName("form-control");
-          var i;
-          let array=[];
-          for (i = 0; i < inputs.length; i++) {
-            var inputValue = jQuery(inputs[i]).value;
-            $.ajax({
-              type: "GET",
-              dataType: "json",
-              url: './completion/'+inputValue,
-              contentType: "application/json",
-              data:JSON.stringify({
-              }),
-              complete: function(xmlHttp) {
-                // xmlHttp is a XMLHttpRquest object
-                obj = JSON.parse(xmlHttp.responseText);
-
-                array = obj.data.list;
-
-              }
-            });
-          }
-        });
-
       </script>
 
       <title>{% block title %}{% endblock %}</title>
