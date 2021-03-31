@@ -30,14 +30,17 @@
         .ui-autocomplete {
 	  max-width:650px;
           overflow-x: hidden;
+          z-index: 101;
         }
 	.ui-menu-item {
 	  max-width:650px;
           overflow-x: hidden;
+          z-index: 101;
         }
 	.ui-corner-all {
           overflow-x: hidden;
           max-width:650px;
+          z-index: 101;
         }
 
 
@@ -355,6 +358,7 @@ outline: none;
                     source: array,
                     minLength:2
                   });
+                  $('.ui-autocomplete').css({'zIndex':'101'});
                 }
               });
           };
@@ -429,7 +433,7 @@ outline: none;
 
         var bg_img = $("body").css("background-image");
 
-        $("#searchWrapper").css({position: "fixed",paddingTop:10, top: 0, zIndex:100, backgroundImage: bg_img, width: "49%"})
+        $("#searchWrapper").css({position: "fixed",paddingTop:10, top: 0,zIndex: 3,   backgroundImage: bg_img, width: "49%"})
       }
 
       function searchById(){
