@@ -46,6 +46,9 @@ def search():
         for q in query:
             service.heat_increase(q)
 
+    print("correction")
+    print(corrected_query)
+
     return render_template("content.html", content=records[:100], query=corrected_query)
 
 
