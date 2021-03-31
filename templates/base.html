@@ -150,41 +150,23 @@
     }
 .logo img{
 	float:left;
-	margin-left: 45%;
-	margin-bottom: 25px;
-	margin-top: 20px;
+	margin-left: 43%;
+	margin-bottom: 40px;
 	align-self: center;
-	width:80px;
-	height:100px}
+	width:250px;
+	height:150px}
 
 
-/*
-input{
-      border: 2px solid black;
-      }
-input[type=text]:focus{
-outline: none;
-}
-*/
 
-.heatTitle{
-  float:none;
-  width:600px;
-  height:40px;
-}
-.heatTitle img{
-    margin-left:0px;
-	float:left;
-	width:25px;
-	height:25px
-}
+
 .ht{
-    float:left;
-    margin-left: auto;
-    font-family: verdana, sans-serif;
-    color: #FF6E14;
+    margin-left:15px;
+    font-family: courier, "courier new", monospace;
+    color: #F56527;
+    font-size: 20px;
     font-weight: bold;
     font-variant: small-caps;
+    text-align: justify;
 }
 
 </style>
@@ -208,7 +190,7 @@ outline: none;
                         <div class="item">
                             <div class="imTB">
                                 <div class="img">
-                                    <img src="../static/images/boardcast1.png"/>
+                                    <img id="boardcastimg1" src="../static/images/boardcast1.png"/>
                                 </div>
                                 <div class="textB">
                                     <div class="bg_x"></div>
@@ -224,7 +206,7 @@ outline: none;
                         <div class="item">
                             <div class="imTB">
                                 <div class="img">
-                                    <img src="../static/images/boardcast2.png"/>
+                                    <img id="boardcastimg2" src="../static/images/boardcast2.png"/>
                                 </div>
                                 <div class="textB">
                                     <div class="bg_x"></div>
@@ -241,7 +223,7 @@ outline: none;
                         <div class="item">
                             <div class="imTB">
                                 <div class="img">
-                                    <img src="../static/images/boardcast3.png"/>
+                                    <img id="boardcastimg3" src="../static/images/boardcast3.png"/>
                                 </div>
                                 <div class="textB">
                                     <div class="bg_x"></div>
@@ -323,7 +305,7 @@ outline: none;
     {% block result %}
     {% endblock %}
 
-    <button onclick=changeMode() type="button" id="switchMode" class="btn btn-secondary position-fixed" style="bottom:50px;right:10px"><i class="bi bi-lightbulb-off"></i></button>
+    <button onclick=changeMode() type="button" id="switchMode" class="btn btn-secondary position-fixed" style="bottom:250px;right:10px"><i class="bi bi-lightbulb-off"></i></button>
 
 
     <script type="text/javascript">
@@ -428,12 +410,10 @@ outline: none;
             displayDiv(1);
             var bg_img = $("body").css("background-image");
             $(".card-body").css({backgroundImage: bg_img});
+            $("#searchWrapper").css({position: "fixed",paddingTop:10, top: 0, zIndex:3, backgroundImage: bg_img, width: "49%"})
           }
         });
 
-        var bg_img = $("body").css("background-image");
-
-        $("#searchWrapper").css({position: "fixed",paddingTop:10, top: 0,zIndex: 3,   backgroundImage: bg_img, width: "49%"})
       }
 
       function searchById(){
@@ -478,6 +458,12 @@ outline: none;
                 $('body').css({'background-image':'url(../static/images/darkly.png)', "color": "white"});
                 $("#searchWrapper").css('background-image','url(../static/images/darkly.png)')
                 $(".card-body").css('background-image','url(../static/images/darkly.png)')
+                $(".logo-img").attr('src','../static/images/logonight1.png');
+                $('#boardcastimg1').attr('src','../static/images/1.png');
+                $('#boardcastimg2').attr('src','../static/images/2.png');
+                $('#boardcastimg3').attr('src','../static/images/3.png');
+                $(".ht").css('color','grey');
+                $(".card").css('background-color','#2B2828');
 
             } else {
                 nextMode = "darkly";
@@ -485,6 +471,13 @@ outline: none;
                 $('body').css({'background-image':'url(../static/images/default.png)', "color": "black"});
                 $("#searchWrapper").css('background-image','url(../static/images/default.png)')
                 $(".card-body").css('background-image','url(../static/images/default.png)')
+                $(".logo-img").attr('src','../static/images/logo1.png');
+                $('#boardcastimg1').attr('src','../static/images/boardcast1.png');
+                $('#boardcastimg2').attr('src','../static/images/boardcast2.png');
+                $('#boardcastimg3').attr('src','../static/images/boardcast3.png');
+                $(".ht").css('color','#F56527');
+                $(".card").css('background-color','#ffffff');
+
             }
         }
     </script>
@@ -516,14 +509,13 @@ outline: none;
 
  }
 }
-
     function setIsSearchID(x) {
             isSearchID = x;
     }
 </script>
   </body>
 
-<footer>
+<footer height="100px">
 {#<div class="control" float="right">#}
 {#  <input class="" float="right" type="checkbox" onClick="check()" id="night"><h6 size="1px;">NightMode</h6>#}
 {# </div>#}

@@ -8,12 +8,10 @@
   text-decoration:none;
 }
 .btn-link:hover{
+  color:orange;
   text-decoration:underline;
 }
-
         table{
-            margin-left:30px;
-            float:left;
             width:400px;
            border-collapse:collapse;
         }
@@ -34,31 +32,58 @@
         }
 
 
-        #query{
+#query{
 float:left;
 width:auto;
 }
 #searchForm>input:not(:first-child){
 float:left;
-width:400px;
-margin-right:80px;
-
+width:350px;
+margin-right:100px;
 
 }
-#heatTable{
-    width:100%;
-    height: 400px;
+
+.heat{
+    width:50%;
+    margin:0 auto;
     text-align: center;
+    margin-bottom:150px;
+
 }
-#table1{
-   margin:auto;
+.heatTitle{
+  float:none;
+  width:600px;
+  height:40px;
+}
+.heatTitle img{
+    margin-left:2px;
+	float:left;
+	width:25px;
+	height:25px
+}
+.heatTable{
+    width:100%;
+}
+.heatTable #table1{
+   margin:0 auto;
    width:300px;
    border-collapse:collapse;
 }
  </style>
 
-<div class="logo" id="logo">
-	<img class="img" src="../static/images/logo.png" style="width:300px;height:143px;display:table-cell;overflow:hidden;position:relative;text-align:center;vertical-align:middle;">
+
+<script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+<script>
+ L2Dwidget.init({
+  "model": { "jsonPath":"https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json", "scale": 1, "hHeadPos":0.5, "vHeadPos":0.618 },
+  "display": { "position": "right", "width": 80, "height": 150, "hOffset": 0, "vOffset": 0 },
+  "mobile": { "show": true, "scale": 0.5 },
+  "react": { "opacityDefault": 0.7, "opacityOnHover": 0.2 }
+  });
+</script>
+
+<div class="logo" id="logo" >
+	<img class="logo-img" src="../static/images/logo1.png" >
 </div>
 
 
@@ -88,9 +113,6 @@ margin-right:80px;
     </div>
       </div>
   </form>
-
-  <br/>
-  <br/>
   <br/>
 </div> <!-- /container -->
 
@@ -133,14 +155,13 @@ margin-right:80px;
   </script>
 
 
-  <div id="heat" class="container">
+  <div id="heat" class="heat" class="container">
     <div class="heatTitle">
-        <img src="../static/images/heat.png" >
-        <h5 class="ht">HOT!</h5>
+<!--        <img src="../static/images/hot.png" >-->
+        <h5 class="ht">HOT Search!</h5>
      </div>
-    <br/><br/>
-    <div float="left" width="auto">
-        <div id="heatTable">
+
+    <div id="heatTable" class="heatTable">
       <table id="table1">
         <tr>
             <td>
@@ -168,7 +189,6 @@ margin-right:80px;
 
         </tr>
       </table>
-        </div>
         </div>
   </div>
 

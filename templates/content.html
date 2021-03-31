@@ -19,11 +19,10 @@
       background-color: #ffffff;
   }
   .card-body:hover {
-      background-color: #ccc;
-      <!--transform: scale(1.2);-->
+      background-color: grey;
   }
   .card{
-    background-color: black;
+    background-color: #ffffff;
   }
   div{
   margin:0px;
@@ -46,6 +45,7 @@
   }
 
 </script>
+<div style="border: none;padding-top: 110px"></div>
   {% if content %}
       <div style="border: none;padding-top: 110px"></div>
     {% if query %}
@@ -85,8 +85,8 @@
     </div>
     {% endfor %}
 
-    <div style="height:40px"></div>
-    <nav aria-label="Page navigation example">
+    <div style="height:30px"></div>
+    <nav aria-label="Page navigation example" class="">
       <ul class="pagination justify-content-center" style="padding-bottom: 5px">
           <li class="page-item"><a class="page-link" href="#" onclick="displayDiv(1)">&laquo;</a></li>
 
@@ -107,6 +107,6 @@
         <li class="page-item"><a class="page-link" href="#" onclick="displayDiv({{arr}})">&raquo;</a></li>
       </ul>
     </nav>
-
+ <div style="height:30px"></div>
   {% endif %}
 {% endblock %}
