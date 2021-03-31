@@ -67,7 +67,7 @@
                 // xmlHttp is a XMLHttpRquest object
                 obj = JSON.parse(xmlHttp.responseText);
                 console.log(obj);
-                array = obj.data.list;
+                array = obj;
 
                 jQuery('.autocomplete').autocomplete({
                   at: "left down",
