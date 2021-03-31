@@ -1,61 +1,20 @@
 {% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
 {% block title %}Home Page{% endblock %}
 {% block content %}
-
-<style>
-  .container{
-      float: none;
-      display: block;
-      margin-left: auto;
-      margin-right:auto;
-      width: 50%;
-  }
-  .container img{
-    float: left;
-    margin-right: 15px;
-    width: 100px;
-	height: 150px;
-  }
-  .container p{
-    display:-webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:6;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-  .ui-autocomplete {
-    max-height: 100px;
-    overflow-y: auto;
-    overflow-x: hidden;
-	width: 100%;
-  }
-
-
-.logo{
-      width: 100%;
-
-     height: 150px;
-	overflow: hidden;
-	background-repeat: no-repeat;
-	background-position: center center;
-    }
-.logo img{
-	float:left;
-	margin-left: 45%;
-	margin-bottom: 25px;
-	margin-top: 20px;
-	align-self: center;
-	width:80px; 
-	height:100px}
-
-
-</style>
-
 <style type="text/css">
+
+.btn-link{
+  color:black;
+  text-decoration:none;
+}
+.btn-link:hover{
+  text-decoration:underline;
+}
+
         table{
-            margin:auto;
-            width:300px;
+            margin-left:30px;
+            float:left;
+            width:400px;
            border-collapse:collapse;
         }
         th,td{
@@ -73,30 +32,61 @@
         tr:last-child td{
             border-bottom:0px;
         }
-    </style>
+
+
+        #query{
+float:left;
+width:auto;
+}
+#searchForm>input:not(:first-child){
+float:left;
+width:400px;
+margin-right:80px;
+
+
+}
+#heatTable{
+    width:100%;
+    height: 400px;
+    text-align: center;
+}
+#table1{
+   margin:auto;
+   width:300px;
+   border-collapse:collapse;
+}
+ </style>
 
 <div class="logo" id="logo">
-	<img class="img" src="../static/images/logo.jpeg">
+	<img class="img" src="../static/images/logo.png" style="width:300px;height:143px;display:table-cell;overflow:hidden;position:relative;text-align:center;vertical-align:middle;">
 </div>
 
+
+
 <div class="container">
-  <form method="GET" action="{{ url_for('app.search') }}" name="mainForm">
+  <form method="GET" action="javascript:void(0);" name="mainForm">
     {{ form.hidden_tag() }}
-    <h3>Search Here</h3>
-    <div id="searchForm" class="ui-widget">
-      <input id="query" type="text" class="form-control autocomplete input1" placeholder="Searching" aria-label="Searching" aria-describedby="basic-addon1" oninput="OnInput (event)">
-      <button type="button" class="btn btn-primary btn1" onclick="search()">Search</button>
-      <button type="button" class="btn btn2" onclick="booleanAdd()" ></button>
-    </div>
+      <div  id="searchWrapper">
+    <div class="btn-group btn-group-lg" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" onclick="setIsSearchID(false)" id="btnradio1" autocomplete="off" checked style="border: none; border-bottom-left-radius: 0;">
+        <label class="btn btn-outline-primary btn-sm" for="btnradio1" style="border: none; border-bottom-left-radius: 0;">Keywords</label>
 
+        <input type="radio" class="btn-check" name="btnradio" onclick="setIsSearchID(true)" id="btnradio2" autocomplete="off" style="border: none; border-bottom-right-radius: 0">
+        <label class="btn btn-outline-primary btn-sm" style="border: none; border-bottom-right-radius: 0" for="btnradio2">Book ID</label>
+    </div>
+    <div id="searchForm" class="input-group mb-3 input-group-lg">
+            <input id="query" required style="border-top-left-radius: 0; border-bottom-right-radius: 0;border-top-right-radius: 0" type="text" class="form-control autocomplete" placeholder="Search here" aria-label="Searching" aria-describedby="basic-addon1" oninput="OnInput (event)" >
+        <div class="input-group-append">
+            <button type="button" style="border-bottom-left-radius: 0;border-top-left-radius: 0" class="btn btn-outline-primary btn-lg" onclick="search()"><i class="fa fa-search"></i></button>
+        </div>
+        <button type="button" style="border-bottom-left-radius:100%;border-top-left-radius:100%;background-color:#D3D3D3;border:none;margin-left: 3px" class="btn btn-secondary" onclick="booleanAdd()" ><i class="fa fa-plus"></i></button>
+        <button type="button" style="border-bottom-right-radius:100%;border-top-right-radius:100%;background-color:#D3D3D3;border:none;" class="btn btn-secondary" onclick="delLastInput()" ><i class="fa fa-minus"></i></button>
+    </div>
     <div class="form-check form-switch">
-      <div class="checkboxOne">
-      <input class="" type="checkbox" id="btncheck1" float="left" checked/>&nbsp; &nbsp; &nbsp;
-      <label class="" for="btncheck1"></label>
-      </div>
-      <div class="checkboxText"><font size="1px">Search Description</font></div>
+      <input class="form-check-input" type="checkbox" id="btncheck1" checked/>
+      <label class="form-check-label" for="btncheck1">Search Description</label>
     </div>
-
+      </div>
   </form>
 
   <br/>
@@ -139,45 +129,22 @@
     function addToSearch(txt){
       document.getElementById("query").value = txt;
     }
+
   </script>
 
-<style type="text/css">
-    .heatword{
-    color:black;
-    text-decoration:none;
-}
-    .heatword:hover{
-    text-decoration:underline ;;
-    }
-.heatTitle{
-width:auto;
-height:40px;
-
-
-}
-.heatTitle img{
-    margin-left:0px;     
-	float:left;
-	width:25px;
-	height:25px}
-.ht{
-    float:left;
-    margin-left:0px;
-}
-</style>
 
   <div id="heat" class="container">
     <div class="heatTitle">
         <img src="../static/images/heat.png" >
-        <h4 class="ht">Heat Search</h4>
+        <h5 class="ht">HOT!</h5>
      </div>
-    <br/>
+    <br/><br/>
     <div float="left" width="auto">
-      <table>
+        <div id="heatTable">
+      <table id="table1">
         <tr>
             <td>
-                   <!--<a class="heatword"  href="#"  ></a>-->
-              <button id="heatword1" type="button" class="btn btn-link" onclick = "addToSearch(this.innerHTML)"></button>
+              <button id="heatword1" type="button" class="btn btn-link " onclick = "addToSearch(this.innerHTML)"></button>
             </td>
             <td>
               <button id="heatword2" type="button" class="btn btn-link" onclick = "addToSearch(this.innerHTML)"></button>
@@ -193,7 +160,7 @@ height:40px;
         </tr>
         <tr>
             <td>
-              <button id="heatword5" type="button" class="btn btn-link" onclick = "addToSearch(this.innerHTML)"></button>
+              <button id="heatword5"  type="button" class="btn btn-link" onclick = "addToSearch(this.innerHTML)"></button>
             </td>
             <td>
               <button id="heatword6" type="button" class="btn btn-link" onclick = "addToSearch(this.innerHTML)"></button>
@@ -202,6 +169,7 @@ height:40px;
         </tr>
       </table>
         </div>
+        </div>
   </div>
 
 {% endblock %}
@@ -209,4 +177,7 @@ height:40px;
 
 {% block result %}
   <div id="results" class="container"></div>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

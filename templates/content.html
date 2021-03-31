@@ -30,36 +30,78 @@
   border:0;
   padding:0;}
 
-<!--  * {-->
-<!--  margin:0;-->
-<!--  padding:0;-->
-<!--  }-->
 </style>
+<script>$('#boardcast').remove();
 
+  function displayDiv(inx){
+    var x = document.getElementsByClassName("pageClass");
+    var i;
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    var divID = "page"+inx;
+    document.getElementById(divID).style.display = "block";
+    $(".page-item").removeClass("active")
+    $(".page-item").eq(inx).addClass("active")
+  }
 
+</script>
   {% if content %}
-	{% if query %}
+    {% if query %}
       <div class="alert alert-primary" role="alert">
         Showing results for {{query}}
       </div>
     {% endif %}
-    {% for c in content %}
-      <div class="card">
-        {% if c.asin %}
-          <h5 class="card-header">{{c.asin}}</h5>
-        {% endif %}
-        <div class="card-body">
-          {% if c.title %}
-            <h4 class="card-title">{{c.title}}</h4>
+      <div style="border: none;padding-top: 110px"></div>
+
+  {% for i in range(0,content|length,10): %}
+
+    <div class="pageClass" id={{"page"+loop.index|string}}>
+      {% for c in content[i:i+10] %}
+        <div class="card">
+          {% if c.asin %}
+            <h5 class="card-header">{{c.asin}}</h5>
           {% endif %}
-          {% if c.img %}
-            <img src={{c.img}} class="img-thumbnail" alt="...">
-          {% endif %}
-          {% if c.description %}
-            <p class="card-text">{{c.description}}</p>
-          {% endif %}
-        </div>
+          <div class="card-body">
+            {% if c.title %}
+              <h4><a class="card-title" target="_blank" href="https://www.amazon.com/-/dp/{{c.asin}}">{{c.title}}</a></h4>
+            {% endif %}
+            {% if c.img %}
+              <img src={{c.img}} class="img-thumbnail" alt="...">
+            {% endif %}
+            {% if c.asin %}
+            <p class="card-text"><b>ASIN:</b> {{c.asin}}</p>
+            {% endif %}
+            {% if c.rank %}
+            <p class="card-text"><b>Sales rank:</b> {{c.rank}}</p>
+            {% endif %}
+            {% if c.description %}
+              <p class="card-text"><b>Description:</b> {{c.description}}</p>
+            {% endif %}
+          </div>
       </div>
+
+      {% endfor %}
+    </div>
     {% endfor %}
+
+    <div style="height:40px"></div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#" onclick="displayDiv(1)">&laquo;</a></li>
+
+        {% for i in range(0,content|length,10): %}
+          {% if i==0 %}
+            <li class="page-item active"><a class="page-link" href="#" onclick="displayDiv({{loop.index}})">{{loop.index}}</a></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="#" onclick="displayDiv({{loop.index}})">{{loop.index}}</a></li>
+
+          {% endif %}
+        {% endfor %}
+      {% set arr = content|length // 10 + 1 %}
+        <li class="page-item"><a class="page-link" href="#" onclick="displayDiv({{arr}})">&raquo;</a></li>
+      </ul>
+    </nav>
+
   {% endif %}
 {% endblock %}
