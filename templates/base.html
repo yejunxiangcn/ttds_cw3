@@ -27,13 +27,6 @@
             justify-content: center;
         }
 
-        .ui-autocomplete {
-    max-width: 210px;
-    overflow-y: auto;
-    /* prevent horizontal scrollbar */
-    overflow-x: hidden;
-  }
-
     </style>
 
 
@@ -82,7 +75,12 @@
                   delay: 1000,
                   source: array,
                   minLength:2,
+                    appendTo: 'query'
                 });
+                // jQuery.ui.autocomplete.prototype._resizeMenu = function () {
+                //     var ul = this.menu.element;
+                //     ul.outerWidth(this.element.outerWidth());
+                // }
               }
             });
         };
